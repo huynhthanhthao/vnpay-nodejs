@@ -1,0 +1,30 @@
+
+extends layout
+
+block content
+    if code == "00"
+        p(style="text-align: center")  GD thành công
+    else
+        p(style="text-align: center; color: red") GD thất bại
+    p(style="text-align: center")
+        a.btn.btn-default(href='http://localhost:3000/profile/order-sent/confirmed') Xem đơn hàng
+    script.
+        let order = JSON.parse(localStorage.getItem("order"))
+        order={...order, paid: true}
+        async function postData() {
+            const response = await fetch("http://localhost:3001/order/", {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                mode: "cors", // no-cors, *cors, same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: "same-origin", // include, *same-origin, omit
+                headers: {
+                "Content-Type": "application/json",
+                },
+                redirect: "follow", // manual, *follow, error
+                referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                body: JSON.stringify(order), // body data type must match "Content-Type" header
+            });
+            console.log(response);
+        }
+        postData()
+        

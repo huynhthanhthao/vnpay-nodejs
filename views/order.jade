@@ -1,0 +1,53 @@
+//Created by CTT VNPAY
+
+extends layout
+
+block content
+    h3=title
+    div.table-responsive
+        form#createOrder(action='/order/create_payment_url', method='POST')
+           
+            div.form-group
+                label Số tiền
+                div.form-control#amount(name='amount2', )=amount  
+            div.form-group
+                label Chủ tài khoản
+                div.form-control#amount(name='fullName', )=fullName 
+            div.form-group
+                label Số tài khoản
+                div.form-control#amount(name='stk')=stk
+            div.form-group
+                label Ngân hàng
+                div.form-control#amount(name='bank')=bank
+            script.
+                localStorage.setItem("order", JSON.stringify(!{orderConfirm}))
+               
+            div.form-group
+                label Chọn Phương thức thanh toán:
+                label.control-label
+                div.controls
+                label.radio-inline
+                #[input(type="radio", name="bankCode", id="defaultPaymentMethod", value="", checked="true")] Cổng thanh toán VNPAYQR
+                div.controls
+                label.radio-inline
+                #[input(type="radio", name="bankCode", id="vnpayqrPaymentMethod", value="VNPAYQR")] Thanh toán qua ứng dụng hỗ trợ VNPAYQR
+                div.controls
+                label.radio-inline
+                #[input(type="radio", name="bankCode", id="vnbankPaymentMethod", value="VNBANK")] Thanh toán qua ATM-Tài khoản ngân hàng nội địa
+                div.controls
+                label.radio-inline
+                #[input(type="radio", name="bankCode", id="intcardPaymentMethod", value="INTCARD")] Thanh toán qua thẻ quốc tế
+            div.form-group
+                label Ngôn ngữ
+                label.control-label
+                div.controls
+                label.radio-inline
+                #[input(type="radio", name="language", id="vnLanguage", value="vn", checked="true")] Tiếng việt
+                div.controls
+                label.radio-inline
+                #[input(type="radio", name="language", id="enLanguage", value="en")] Tiếng anh
+            button.btn.btn-default#btnPopup(type='submit') Thanh toán
+            div.form-group(style='visibility:hidden')
+                label Số tiền
+                input.form-control#amount( name='amount', value=amount)           
+    p&nbsp;
